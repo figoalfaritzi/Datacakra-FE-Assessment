@@ -47,7 +47,11 @@ const LoginPage = () => {
                 <FormItem className="text-left">
                   <FormLabel>Email</FormLabel>
                   <FormControl>
-                    <Input placeholder="Type your email here" {...field} />
+                    <Input
+                      {...field}
+                      placeholder="Type your email here"
+                      type="email"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

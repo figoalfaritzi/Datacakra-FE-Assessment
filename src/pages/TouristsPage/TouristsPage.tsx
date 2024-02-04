@@ -8,6 +8,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { EyeIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 import DeleteDialog from "./DeleteDialog";
+import EditDialog from "./EditDialog";
+import AddDialog from "./AddDialog";
 
 const TouristsPage = () => {
   const [pageIndex, setPageIndex] = useState(0);
@@ -60,6 +62,7 @@ const TouristsPage = () => {
           <Link to={`/tourist/${row.original.id}/detail`}>
             <EyeIcon className="cursor-pointer hover:fill-slate-200" />
           </Link>
+          <EditDialog id={row.original.id} />
           <DeleteDialog id={row.original.id} />
         </div>
       ),
@@ -67,15 +70,20 @@ const TouristsPage = () => {
   ];
 
   return (
-    data && (
-      <TouristsTable
-        columns={columns}
-        data={data}
-        handleFetchNextPage={handleFetchNextPage}
-        handleFetchPreviousPage={handlePreviousNextPage}
-        pageIndex={pageIndex}
-      />
-    )
+    <>
+      <div className="flex flex-row-reverse mb-5">
+        <AddDialog />
+      </div>
+      {data && (
+        <TouristsTable
+          columns={columns}
+          data={data}
+          handleFetchNextPage={handleFetchNextPage}
+          handleFetchPreviousPage={handlePreviousNextPage}
+          pageIndex={pageIndex}
+        />
+      )}
+    </>
   );
 };
 

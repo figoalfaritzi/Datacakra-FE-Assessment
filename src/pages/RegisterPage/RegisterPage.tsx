@@ -104,7 +104,11 @@ const RegisterPage = () => {
                     <FormItem className="text-left">
                       <FormLabel>Email</FormLabel>
                       <FormControl>
-                        <Input {...field} placeholder="Type your email here" />
+                        <Input
+                          {...field}
+                          placeholder="Type your email here"
+                          type="email"
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
