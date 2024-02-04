@@ -3,16 +3,17 @@ import { useQuery } from "@tanstack/react-query";
 import TouristsTable from "./TouristsTable";
 import { useState } from "react";
 import { ColumnDef } from "@tanstack/react-table";
-import { IGetTouristsResponseData } from "@/services/touristService/touristService.types";
+import { ITouristResponse } from "@/services/touristService/touristService.types";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { EyeIcon } from "lucide-react";
 import { Link } from "react-router-dom";
+import DeleteDialog from "./DeleteDialog";
 
 const TouristsPage = () => {
   const [pageIndex, setPageIndex] = useState(0);
 
   const { data } = useQuery({
-    queryKey: ["tourists", { index: pageIndex }],
+    queryKey: ["tourists", pageIndex],
     queryFn: () => getTourists(String(pageIndex + 1)),
   });
 
@@ -25,8 +26,7 @@ const TouristsPage = () => {
   };
 
   const PAGE_SIZE = 10;
-
-  const columns: ColumnDef<IGetTouristsResponseData>[] = [
+  const columns: ColumnDef<ITouristResponse>[] = [
     {
       header: "No.",
       cell: ({ row }) => `${row.index + 1 + PAGE_SIZE * pageIndex}.`,
@@ -56,9 +56,12 @@ const TouristsPage = () => {
     {
       header: "Action",
       cell: ({ row }) => (
-        <Link to={`${row.original.id}/detail`}>
-          <EyeIcon className="cursor-pointer hover:fill-slate-200" />
-        </Link>
+        <div className="flex gap-2">
+          <Link to={`/tourist/${row.original.id}/detail`}>
+            <EyeIcon className="cursor-pointer hover:fill-slate-200" />
+          </Link>
+          <DeleteDialog id={row.original.id} />
+        </div>
       ),
     },
   ];

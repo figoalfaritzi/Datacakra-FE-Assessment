@@ -1,5 +1,10 @@
 import { axiosMainClient } from "../api";
-import { IGetTouristsResponse, PageType } from "./touristService.types";
+import { IdType } from "../userService";
+import {
+  ITouristResponse,
+  IGetTouristsResponse,
+  PageType,
+} from "./touristService.types";
 
 const url = "/Tourist";
 
@@ -12,6 +17,24 @@ export const getTourists = async (
     params: {
       page,
     },
+  });
+
+  return data;
+};
+
+export const getTourist = async (id: IdType): Promise<ITouristResponse> => {
+  const { data } = await axiosMainClient({
+    url: `${url}/${id}`,
+    method: "GET",
+  });
+
+  return data;
+};
+
+export const deleteTourist = async (id: IdType): Promise<ITouristResponse> => {
+  const { data } = await axiosMainClient({
+    url: `${url}/${id}`,
+    method: "DELETE",
   });
 
   return data;

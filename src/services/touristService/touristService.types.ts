@@ -9,10 +9,10 @@ export interface IGetTouristsResponse {
   per_page: number;
   totalrecord: number;
   total_pages: number;
-  data: IGetTouristsResponseData[];
+  data: ITouristResponse[];
 }
 
-export interface IGetTouristsResponseData {
+export interface ITouristResponse {
   $id: string;
   createdat: string;
   id: string;
