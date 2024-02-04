@@ -13,6 +13,7 @@ import {
 import { Input } from "@/components/ui/input";
 import useAuth from "@/authentication/useAuth";
 import { Card, CardContent } from "@/components/ui/card";
+import AuthText from "@/components/AuthText/AuthText";
 
 const LoginPage = () => {
   const formSchema = z.object({
@@ -72,6 +73,11 @@ const LoginPage = () => {
             <Button type="submit">Login</Button>
           </form>
         </Form>
+        <AuthText
+          text="Don't have an account?"
+          redirectText="Sign up"
+          redirectUrl="/register"
+        />
       </CardContent>
     </Card>
   );

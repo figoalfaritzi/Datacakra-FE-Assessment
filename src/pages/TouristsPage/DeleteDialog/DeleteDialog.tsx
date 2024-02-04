@@ -1,17 +1,18 @@
-import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
 import { Trash2Icon } from "lucide-react";
 import IDeleteDialog from "./DeleteDialog.types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteTourist } from "@/services/touristService/touristService";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 const DeleteDialog = ({ id }: IDeleteDialog) => {
   const queryClient = useQueryClient();
@@ -22,25 +23,26 @@ const DeleteDialog = ({ id }: IDeleteDialog) => {
   });
 
   return (
-    <Dialog>
-      <DialogTrigger>
+    <AlertDialog>
+      <AlertDialogTrigger>
         <Trash2Icon className="cursor-pointer hover:fill-red-200" color="red" />
-      </DialogTrigger>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>Are you absolutely sure?</DialogTitle>
-          <DialogDescription>
+      </AlertDialogTrigger>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+          <AlertDialogDescription>
             This action cannot be undone. This will permanently delete the
             tourist data.
-          </DialogDescription>
-        </DialogHeader>
-        <DialogFooter>
-          <Button variant="destructive" onClick={() => mutate(id)}>
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogAction onClick={() => mutate(id)}>
             Delete
-          </Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   );
 };
 

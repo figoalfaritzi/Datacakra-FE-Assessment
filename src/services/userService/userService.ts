@@ -1,6 +1,12 @@
 import { ILogin } from "@/authentication/authentication.types";
 import { axiosAuthClient, axiosMainClient } from "../api";
-import { IGetUserInfoResponse, IPostLoginResponse, IdType } from ".";
+import {
+  IGetUserInfoResponse,
+  IPostLoginResponse,
+  IPostRegisterRequest,
+  IPostRegisterResponse,
+  IdType,
+} from ".";
 
 export const postLogin = async (
   loginData: ILogin,
@@ -9,6 +15,18 @@ export const postLogin = async (
     url: `/login`,
     method: "POST",
     data: loginData,
+  });
+
+  return data;
+};
+
+export const postRegister = async (
+  registerData: IPostRegisterRequest,
+): Promise<IPostRegisterResponse> => {
+  const { data } = await axiosAuthClient({
+    url: `/registration`,
+    method: "POST",
+    data: registerData,
   });
 
   return data;

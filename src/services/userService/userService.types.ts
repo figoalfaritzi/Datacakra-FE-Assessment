@@ -1,11 +1,13 @@
 export type IdType = string;
 type EmailType = string;
 type NameType = string;
+type CodeType = number;
+type MessageType = "success";
 
 export interface IPostLoginResponse {
   $id: string;
-  code: number;
-  message: "success";
+  code: CodeType;
+  message: MessageType;
   data: IPostLoginResponseData;
 }
 
@@ -23,4 +25,23 @@ export interface IGetUserInfoResponse {
   password: string;
   name: NameType;
   avatar: string;
+}
+
+export interface IPostRegisterRequest {
+  name: NameType;
+  email: EmailType;
+  password: string;
+}
+
+export interface IPostRegisterResponseData {
+  id: string;
+  email: EmailType;
+  name: NameType;
+}
+
+export interface IPostRegisterResponse {
+  $id: number;
+  code: CodeType;
+  message: MessageType;
+  data: IPostRegisterResponseData;
 }

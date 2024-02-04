@@ -6,6 +6,7 @@ import { AuthProvider } from "./authentication/AuthProvider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import HomePage from "./pages/HomePage/HomePage";
 import TouristDetailPage from "./pages/TouristDetailPage";
+import { Toaster } from "./components/ui/toaster";
 
 function App() {
   const queryClient = new QueryClient();
@@ -28,6 +29,7 @@ function App() {
             </Route>
           </Routes>
         </AuthProvider>
+        <Toaster />
       </BrowserRouter>
     </QueryClientProvider>
   );

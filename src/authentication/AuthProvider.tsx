@@ -12,6 +12,7 @@ import {
 import { AxiosError } from "axios";
 import { IErrorResponse } from "@/services/services.types";
 import { USER_DEFAULT_VALUE } from "@/constants";
+import { useToast } from "@/components/ui/use-toast";
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser, removeUser] = usePersistedState<IPostLoginResponseData>(
@@ -27,11 +28,19 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     ILogin
   >({ mutationFn: postLogin });
 
+  const { toast } = useToast();
+
   const login = async (data: ILogin) => {
-    const loginResponse = await mutateAsync(data);
-    setUser(loginResponse.data);
-    const from = location.state?.from || "/tourist";
-    navigate(from, { replace: true });
+    try {
+      const loginResponse = await mutateAsync(data);
+      setUser(loginResponse.data);
+      const from = location.state?.from || "/tourist";
+      navigate(from, { replace: true });
+    } catch (error) {
+      toast({
+        title: "Login failed",
+      });
+    }
   };
 
   const logout = () => {

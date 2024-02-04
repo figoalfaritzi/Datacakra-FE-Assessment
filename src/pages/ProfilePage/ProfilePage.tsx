@@ -1,5 +1,4 @@
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import DetailCard from "@/components/DetailCard";
 import { USER_DEFAULT_VALUE } from "@/constants";
 import usePersistedState from "@/hooks";
 import { IPostLoginResponseData, getUserInfo } from "@/services/userService";
@@ -18,34 +17,11 @@ const ProfilePage = () => {
   });
 
   const dataToMap = [
-    { label: "Name", value: data?.name },
-    { label: "Email", value: data?.email },
+    { label: "Name", value: data?.name || "" },
+    { label: "Email", value: data?.email || "" },
   ];
 
-  return (
-    <Card className="w-1/2 mx-auto">
-      <CardHeader>
-        <CardTitle>Profile</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <Avatar className="mx-auto mb-5">
-          <AvatarImage src={data?.avatar} />
-        </Avatar>
-        <table className="text-left mx-auto">
-          {dataToMap.map((e) => (
-            <tr key={e.label}>
-              <td className="w-1/2 py-2">
-                <p className="font-bold">{e.label}</p>
-              </td>
-              <td>
-                <p>{e.value}</p>
-              </td>
-            </tr>
-          ))}
-        </table>
-      </CardContent>
-    </Card>
-  );
+  return data && <DetailCard data={dataToMap} avatarUrl={data.avatar} />;
 };
 
 export default ProfilePage;
