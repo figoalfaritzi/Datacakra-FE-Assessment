@@ -15,8 +15,6 @@ const processRequest = async (config: InternalAxiosRequestConfig) => {
     window.localStorage.getItem("USER") || "",
   );
 
-  console.log(Token);
-
   let configObj: any = {};
 
   if (Token) {

@@ -1,6 +1,6 @@
 import { ILogin } from "@/authentication/authentication.types";
 import { axiosAuthClient, axiosMainClient } from "../api";
-import { IPostLoginResponse, IdType } from ".";
+import { IGetUserInfoResponse, IPostLoginResponse, IdType } from ".";
 
 export const postLogin = async (
   loginData: ILogin,
@@ -14,7 +14,9 @@ export const postLogin = async (
   return data;
 };
 
-export const getUserInfo = async (id: IdType): Promise<IPostLoginResponse> => {
+export const getUserInfo = async (
+  id: IdType,
+): Promise<IGetUserInfoResponse> => {
   const { data } = await axiosMainClient({
     url: `/users/${id}`,
     method: "GET",

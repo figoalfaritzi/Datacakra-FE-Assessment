@@ -1,4 +1,6 @@
 export type IdType = string;
+type EmailType = string;
+type NameType = string;
 
 export interface IPostLoginResponse {
   $id: string;
@@ -10,7 +12,15 @@ export interface IPostLoginResponse {
 export interface IPostLoginResponseData {
   $id: string;
   Id: IdType;
-  Name: string;
-  Email: string;
+  Name: NameType;
+  Email: EmailType;
   Token: string;
+}
+
+export interface IGetUserInfoResponse {
+  id: IdType;
+  email: EmailType;
+  password: string;
+  name: NameType;
+  avatar: string;
 }
