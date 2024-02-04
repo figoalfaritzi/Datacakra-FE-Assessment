@@ -1,7 +1,7 @@
 import usePersistedState from "@/hooks/usePersistedState";
 import AuthContext from "./AuthContext";
 import { ReactNode } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { ILogin } from "./authentication.types";
 import { useMutation } from "@tanstack/react-query";
 import {
@@ -19,6 +19,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     USER_DEFAULT_VALUE,
   );
   const navigate = useNavigate();
+  const location = useLocation();
 
   const { mutateAsync } = useMutation<
     IPostLoginResponse,
@@ -29,7 +30,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const login = async (data: ILogin) => {
     const loginResponse = await mutateAsync(data);
     setUser(loginResponse.data);
-    navigate("/profile");
+    const from = location.state?.from || "/tourist";
+    navigate(from, { replace: true });
   };
 
   const logout = () => {

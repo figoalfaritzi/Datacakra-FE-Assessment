@@ -35,7 +35,7 @@ const ProfilePage = () => {
         <table className="text-left">
           {dataToMap.map((e) => (
             <tr key={e.label}>
-              <td className="w-2/3 py-2">
+              <td className="w-1/2 py-2">
                 <p className="font-bold">{e.label}</p>
               </td>
               <td>

@@ -14,7 +14,7 @@ const MainLayout = ({ children }: IMainLayout) => {
 
   return (
     <>
-      <NavigationMenu>
+      <NavigationMenu className="mb-5 mx-auto">
         <NavigationMenuList>
           <NavigationMenuItem>
             <Link to="/tourist">
