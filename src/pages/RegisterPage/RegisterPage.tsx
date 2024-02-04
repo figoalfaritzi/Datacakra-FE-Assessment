@@ -22,6 +22,7 @@ import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
 import { z } from "zod";
 
 const RegisterPage = () => {
@@ -71,7 +72,10 @@ const RegisterPage = () => {
         {success ? (
           <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
             Registration success. Log in{" "}
-            <span className="font-bold hover:text-blue-500">here</span>
+            <Link to="/login">
+              {" "}
+              <span className="font-bold hover:text-blue-500">here</span>
+            </Link>
           </h4>
         ) : (
           <>
