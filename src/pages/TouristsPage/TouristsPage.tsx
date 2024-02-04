@@ -56,7 +56,7 @@ const TouristsPage = () => {
     {
       header: "Action",
       cell: ({ row }) => (
-        <Link to={row.original.id}>
+        <Link to={`${row.original.id}/detail`}>
           <EyeIcon className="cursor-pointer hover:fill-slate-200" />
         </Link>
       ),

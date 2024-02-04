@@ -1,9 +1,5 @@
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { USER_DEFAULT_VALUE } from "@/constants";
 import usePersistedState from "@/hooks";
 import { IPostLoginResponseData, getUserInfo } from "@/services/userService";
@@ -32,7 +28,10 @@ const ProfilePage = () => {
         <CardTitle>Profile</CardTitle>
       </CardHeader>
       <CardContent>
-        <table className="text-left">
+        <Avatar className="mx-auto mb-5">
+          <AvatarImage src={data?.avatar} />
+        </Avatar>
+        <table className="text-left mx-auto">
           {dataToMap.map((e) => (
             <tr key={e.label}>
               <td className="w-1/2 py-2">
