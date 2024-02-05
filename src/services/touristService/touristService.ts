@@ -5,6 +5,7 @@ import {
   IGetTouristsResponse,
   PageType,
   IPutTouristRequest,
+  IPostTouristRequest,
 } from "./touristService.types";
 
 const url = "/Tourist";
@@ -47,6 +48,18 @@ export const putTourist = async (
   const { data } = await axiosMainClient({
     url: `${url}/${putData.id}`,
     method: "PUT",
+    data: putData,
+  });
+
+  return data;
+};
+
+export const postTourist = async (
+  putData: IPostTouristRequest,
+): Promise<ITouristResponse> => {
+  const { data } = await axiosMainClient({
+    url: `${url}`,
+    method: "POST",
     data: putData,
   });
 

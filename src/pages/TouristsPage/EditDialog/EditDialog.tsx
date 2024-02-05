@@ -77,7 +77,7 @@ const EditDialog = ({ id }: IEditDialog) => {
     mutationFn: putTourist,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["tourists"] });
-      toast({ title: "Edit success" });
+      toast({ title: "Tourist edited" });
     },
     onError: (error) => toast({ title: error.response?.data.message }),
   });

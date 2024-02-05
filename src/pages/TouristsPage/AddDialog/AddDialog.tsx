@@ -8,7 +8,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteTourist } from "@/services/touristService/touristService";
+import { postTourist } from "@/services/touristService/touristService";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -22,6 +22,13 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@radix-ui/react-label";
 import formSchema from "../AddEditFormSchema";
+import { useToast } from "@/components/ui/use-toast";
+import {
+  IPostTouristRequest,
+  ITouristResponse,
+} from "@/services/touristService/touristService.types";
+import { IErrorResponse } from "@/services/services.types";
+import { AxiosError } from "axios";
 
 const AddDialog = () => {
   const queryClient = useQueryClient();
@@ -35,13 +42,27 @@ const AddDialog = () => {
     },
   });
 
-  const { mutate } = useMutation({
-    mutationFn: deleteTourist,
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["tourists"] }),
+  const { toast } = useToast();
+
+  const { mutate } = useMutation<
+    ITouristResponse,
+    AxiosError<IErrorResponse>,
+    IPostTouristRequest
+  >({
+    mutationFn: postTourist,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["tourists"] });
+      toast({ title: "Tourist created" });
+    },
+    onError: (error) => toast({ title: error.response?.data.message }),
   });
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    mutate(values);
+  const onSubmit = ({ email, location, name }: z.infer<typeof formSchema>) => {
+    mutate({
+      tourist_email: email,
+      tourist_location: location,
+      tourist_name: name,
+    });
   };
 
   return (
@@ -105,7 +126,7 @@ const AddDialog = () => {
                 <FormItem className="text-left">
                   <div className="grid grid-cols-4 items-center gap-4">
                     <Label htmlFor={field.name} className="text-right">
-                      Name
+                      Email
                     </Label>
                     <FormControl>
                       <Input
