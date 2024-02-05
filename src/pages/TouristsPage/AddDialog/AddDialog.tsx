@@ -53,6 +53,7 @@ const AddDialog = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["tourists"] });
       toast({ title: "Tourist created" });
+      form.reset();
     },
     onError: (error) => toast({ title: error.response?.data.message }),
   });
