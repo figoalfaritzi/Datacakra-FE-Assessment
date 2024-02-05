@@ -21,3 +21,10 @@ export interface ITouristResponse {
   tourist_location: TouristLocationType;
   tourist_name: TouristNameType;
 }
+
+export interface IPutTouristRequest {
+  id: string;
+  tourist_email: string;
+  tourist_location: string;
+  tourist_name: string;
+}

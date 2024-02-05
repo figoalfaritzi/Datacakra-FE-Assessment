@@ -4,6 +4,7 @@ import {
   ITouristResponse,
   IGetTouristsResponse,
   PageType,
+  IPutTouristRequest,
 } from "./touristService.types";
 
 const url = "/Tourist";
@@ -35,6 +36,18 @@ export const deleteTourist = async (id: IdType): Promise<ITouristResponse> => {
   const { data } = await axiosMainClient({
     url: `${url}/${id}`,
     method: "DELETE",
+  });
+
+  return data;
+};
+
+export const putTourist = async (
+  putData: IPutTouristRequest,
+): Promise<ITouristResponse> => {
+  const { data } = await axiosMainClient({
+    url: `${url}/${putData.id}`,
+    method: "PUT",
+    data: putData,
   });
 
   return data;

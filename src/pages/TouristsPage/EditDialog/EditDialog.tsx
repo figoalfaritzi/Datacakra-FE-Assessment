@@ -12,8 +12,8 @@ import { PencilIcon } from "lucide-react";
 import IEditDialog from "./EditDialog.types";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
-  deleteTourist,
   getTourist,
+  putTourist,
 } from "@/services/touristService/touristService";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -61,12 +61,17 @@ const EditDialog = ({ id }: IEditDialog) => {
   }, [data, form]);
 
   const { mutate } = useMutation({
-    mutationFn: deleteTourist,
+    mutationFn: putTourist,
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["tourists"] }),
   });
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    mutate(values);
+  const onSubmit = ({ email, location, name }: z.infer<typeof formSchema>) => {
+    mutate({
+      id,
+      tourist_email: email,
+      tourist_location: location,
+      tourist_name: name,
+    });
   };
 
   return (
