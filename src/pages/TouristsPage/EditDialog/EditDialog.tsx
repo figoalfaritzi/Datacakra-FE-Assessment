@@ -29,6 +29,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@radix-ui/react-label";
 import { useEffect, useState } from "react";
 import formSchema from "../AddEditFormSchema";
+import { useToast } from "@/components/ui/use-toast";
+import { AxiosError } from "axios";
+import { IErrorResponse } from "@/services/services.types";
+import {
+  ITouristResponse,
+  IPutTouristRequest,
+} from "@/services/touristService/touristService.types";
 
 const EditDialog = ({ id }: IEditDialog) => {
   const queryClient = useQueryClient();
@@ -60,9 +67,19 @@ const EditDialog = ({ id }: IEditDialog) => {
     }
   }, [data, form]);
 
-  const { mutate } = useMutation({
+  const { toast } = useToast();
+
+  const { mutate } = useMutation<
+    ITouristResponse,
+    AxiosError<IErrorResponse>,
+    IPutTouristRequest
+  >({
     mutationFn: putTourist,
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["tourists"] }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["tourists"] });
+      toast({ title: "Edit success" });
+    },
+    onError: (error) => toast({ title: error.response?.data.message }),
   });
 
   const onSubmit = ({ email, location, name }: z.infer<typeof formSchema>) => {
