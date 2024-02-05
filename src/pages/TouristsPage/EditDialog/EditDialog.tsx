@@ -44,9 +44,9 @@ const EditDialog = ({ id }: IEditDialog) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
-      location: "",
-      email: "",
+      name: data?.tourist_name || "",
+      location: data?.tourist_location || "",
+      email: data?.tourist_email || "",
     },
   });
 
