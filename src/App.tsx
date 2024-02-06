@@ -13,7 +13,7 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
+      <BrowserRouter basename="/Datacakra-FE-Assessment">
         <AuthProvider>
           <Routes>
             <Route path="/" element={<HomePage />} />
