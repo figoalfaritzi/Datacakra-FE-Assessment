@@ -1,4 +1,4 @@
-import { Route, BrowserRouter, Routes } from "react-router-dom";
+import { Route, Routes, HashRouter } from "react-router-dom";
 import "./App.css";
 import { ProtectedRoute } from "./authentication/ProtectedRoute";
 import { ProfilePage, RegisterPage, LoginPage, TouristsPage } from "./pages";
@@ -13,7 +13,7 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <BrowserRouter basename="/Datacakra-FE-Assessment">
+      <HashRouter>
         <AuthProvider>
           <Routes>
             <Route path="/" element={<HomePage />} />
@@ -30,7 +30,7 @@ function App() {
           </Routes>
         </AuthProvider>
         <Toaster />
-      </BrowserRouter>
+      </HashRouter>
     </QueryClientProvider>
   );
 }
