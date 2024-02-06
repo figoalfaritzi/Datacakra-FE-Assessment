@@ -29,6 +29,7 @@ import {
 } from "@/services/touristService/touristService.types";
 import { IErrorResponse } from "@/services/services.types";
 import { AxiosError } from "axios";
+import { useState } from "react";
 
 const AddDialog = () => {
   const queryClient = useQueryClient();
@@ -43,6 +44,7 @@ const AddDialog = () => {
   });
 
   const { toast } = useToast();
+  const [open, setOpen] = useState(false);
 
   const { mutate } = useMutation<
     ITouristResponse,
@@ -54,6 +56,7 @@ const AddDialog = () => {
       queryClient.invalidateQueries({ queryKey: ["tourists"] });
       toast({ title: "Tourist created" });
       form.reset();
+      setOpen(false);
     },
     onError: (error) => toast({ title: error.response?.data.message }),
   });
@@ -67,9 +70,9 @@ const AddDialog = () => {
   };
 
   return (
-    <Dialog>
+    <Dialog open={open}>
       <DialogTrigger>
-        <Button>Add tourist</Button>
+        <Button onClick={() => setOpen(true)}>Add tourist</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
